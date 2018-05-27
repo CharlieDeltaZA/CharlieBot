@@ -19,6 +19,10 @@ logger.addHandler(handler)
 
 bot = commands.Bot(command_prefix='!', description="Charlie's Bitch")
 
+@bot.command()
+async def metar(ctx, icao: text):
+    await ctx.send(fetch_metar_raw(icao))
+
 
 @bot.event
 async def on_ready():
