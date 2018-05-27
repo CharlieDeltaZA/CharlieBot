@@ -7,7 +7,7 @@ import logging
 import discord
 from discord.ext import commands
 from credentials import token
-import metar
+from metar import fetch_taf_raw, fetch_metar_raw, fetch_metar_decoded
 
 
 logger = logging.getLogger('discord')
