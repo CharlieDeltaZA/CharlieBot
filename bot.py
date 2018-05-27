@@ -24,6 +24,16 @@ async def metar(ctx, icao: str):
     await ctx.send(fetch_metar_raw(icao))
 
 
+@bot.command()
+async def taf(ctx, icao: str):
+    await ctx.send(fetch_taf_raw(icao))
+
+
+#@bot.command()
+#async def dmetar(ctx, icao: str):
+#    await ctx.send(fetch_metar_decoded(icao))
+
+
 @bot.event
 async def on_ready():
     game = discord.Game("Loading...")
