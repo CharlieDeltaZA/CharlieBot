@@ -2,7 +2,7 @@
 Charlie's Bot - Main file
 """
 
-import datetime
+# import datetime
 import logging
 import discord
 from discord.ext import commands
@@ -26,6 +26,7 @@ async def on_ready():
     print(bot.user.name)
     print(bot.user.id)
     print('------')
+    await client.change_presence(game=discord.Game(name='!help'))
 
 
 
