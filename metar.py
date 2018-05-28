@@ -15,13 +15,13 @@ class Metar:
         self.name = metar['data'][0]['name']
         self.observed = metar['data'][0]['observed']
         self.winddir = metar['data'][0]['wind']['degrees']
-        self.windspd = metar['data'][0]['wind']['speed_kts']
-        self.vis = metar['data'][0]['visibility']['meters']
+        self.windspd = str(metar['data'][0]['wind']['speed_kts'])
+        self.vis = str(metar['data'][0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
         self.clouds = metar['data'][0]['clouds'][0]['text']
-        self.temp = metar['data'][0]['temperature']['celsius']
-        self.dewp = metar['data'][0]['dewpoint']['celsius']
-        self.pressure = metar['data'][0]['barometer']['mb']
+        self.temp = str(metar['data'][0]['temperature']['celsius'])
+        self.dewp = str(metar['data'][0]['dewpoint']['celsius'])
+        self.pressure = str(metar['data'][0]['barometer']['mb'])
 
 
 # Shouldn't need a main unless I run it from command line, but we'll include
