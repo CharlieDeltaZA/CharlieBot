@@ -4,7 +4,7 @@ Charlie's Bot - Main file
 
 # TODO: Add some checks to the commands to ensure they're not empty or contain numbers
 
-# import datetime
+import datetime
 import logging
 import discord
 from discord.ext import commands
@@ -33,20 +33,41 @@ async def metar(ctx, icao: str):
 async def taf(ctx, icao: str):
     await ctx.send(fetch_taf_raw(icao))
 
+# This should take the icao, source the JSON data, initialize variables in a
+# class and return the class, allowing us to format our embed
 
-#@bot.command()
-#async def dmetar(ctx, icao: str):
-#    await ctx.send(fetch_metar_decoded(icao))
+@bot.command()
+async def dmetar(ctx, icao: str):
+    datetime = datetime.datetime.now()
+    datetime = datetime.strftime("%Y/%m/%d %H:%M:%S")
+    metar = fetch_metar_decoded(icao)
+
+    embed=discord.Embed(color=0xff0000)
+    embed.set_thumbnail(url="http://charliedelta.co.za/uploads/images/FSX.ico")
+    embed.add_field(name=DECODED METAR, value=, inline=False)
+    embed.add_field(name=ICAO, value=metar.icao, inline=True)
+    embed.add_field(name=Airport, value=metar.name, inline=True)
+    embed.add_field(name=Observed At, value=metar.observed, inline=False)
+    embed.add_field(name=Wind, value=metar.winddir, inline=True)
+    embed.add_field(name=Speed, value=metar.windspd + " knots", inline=True)
+    embed.add_field(name=Visibility, value=metar.vis + " m", inline=True)
+    embed.add_field(name=Clouds, value=metar.clouds, inline=True)
+    embed.add_field(name=Temperature, value=metar.temp + "C", inline=True)
+    embed.add_field(name=Dewpoint, value=metar.dewp + "C", inline=True)
+    embed.add_field(name=Pressure, value=self.pressure + " hPa", inline=True)
+    embed.set_footer(text="Requested at {} by {}".format(datetime, client.user))
+    #await self.bot.say(embed=embed)
+
+    await ctx.send(embed=embed)
 
 
 @bot.event
 async def on_ready():
-    game = discord.Game("Loading...")
-    await bot.change_presence(status=discord.Status.dnd, activity=game)
-    print('Logged in as')
+    print('----------')
+    print('Logged in as:')
     print(bot.user.name)
     print(bot.user.id)
-    print('------')
+    print('----------')
     game = discord.Game("!help")
     await bot.change_presence(status=discord.Status.online, activity=game)
 
