@@ -44,7 +44,7 @@ async def dmetar(ctx, icao: str):
 
     embed=discord.Embed(color=0xff0000)
     embed.set_thumbnail(url="http://charliedelta.co.za/uploads/images/FSX.ico")
-    embed.add_field(name="DECODED METAR", value=, inline=False)
+    embed.add_field(name="DECODED METAR", value='\uFEFF', inline=False)
     embed.add_field(name="ICAO", value=metar.icao, inline=True)
     embed.add_field(name="Airport", value=metar.name, inline=True)
     embed.add_field(name="Observed At", value=metar.observed, inline=False)
