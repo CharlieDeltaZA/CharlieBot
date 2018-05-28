@@ -14,7 +14,7 @@ class Metar:
         self.icao = metar['data'][0]['icao']
         self.name = metar['data'][0]['name']
         self.observed = metar['data'][0]['observed']
-        self.winddir = metar['data'][0]['wind']['degrees']
+        self.winddir = str(metar['data'][0]['wind']['degrees'])
         self.windspd = str(metar['data'][0]['wind']['speed_kts'])
         self.vis = str(metar['data'][0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
