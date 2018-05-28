@@ -38,8 +38,8 @@ async def taf(ctx, icao: str):
 
 @bot.command()
 async def dmetar(ctx, icao: str):
-    DateTime = datetime.datetime.today()
-    DateTime = datetime.strftime("%Y/%m/%d %H:%M:%S")
+    DateTime = datetime.datetime.now()
+    DateTime = DateTime.strftime("%Y/%m/%d %H:%M:%S")
     metar = fetch_metar_decoded(icao)
 
     embed=discord.Embed(color=0xff0000)
