@@ -48,7 +48,7 @@ async def dmetar(ctx, icao: str):
     embed.add_field(name="ICAO", value=metar.icao, inline=True)
     embed.add_field(name="Airport", value=metar.name, inline=True)
     embed.add_field(name="Observed At", value=metar.observed, inline=False)
-    embed.add_field(name="Wind / Speed", value=metar.winddir + " / " + metar.windspd + " knots", inline=Fase)
+    embed.add_field(name="Wind / Speed", value=metar.winddir + " / " + metar.windspd + " knots", inline=False)
     # embed.add_field(name="Speed", value=metar.windspd + " knots", inline=False)
     embed.add_field(name="Visibility", value=metar.vis + " m", inline=False)
     embed.add_field(name="Clouds", value=metar.clouds, inline=False)
