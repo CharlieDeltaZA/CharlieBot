@@ -38,8 +38,8 @@ async def taf(ctx, icao: str):
 
 @bot.command()
 async def dmetar(ctx, icao: str):
-    datetime = datetime.datetime.now()
-    datetime = datetime.strftime("%Y/%m/%d %H:%M:%S")
+    DateTime = datetime.datetime.now()
+    DateTime = datetime.strftime("%Y/%m/%d %H:%M:%S")
     metar = fetch_metar_decoded(icao)
 
     embed=discord.Embed(color=0xff0000)
@@ -55,7 +55,7 @@ async def dmetar(ctx, icao: str):
     embed.add_field(name="Temperature", value=metar.temp + "C", inline=True)
     embed.add_field(name="Dewpoint", value=metar.dewp + "C", inline=True)
     embed.add_field(name="Pressure", value=self.pressure + " hPa", inline=True)
-    embed.set_footer(text="Requested at {} by {}".format(datetime, client.user))
+    embed.set_footer(text="Requested at {} by {}".format(DateTime, client.user))
     #await self.bot.say(embed=embed)
 
     await ctx.send(embed=embed)
