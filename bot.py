@@ -43,7 +43,7 @@ async def dmetar(ctx, icao: str):
     metar = fetch_metar_decoded(icao)
 
     embed=discord.Embed(title="DECODED METAR", color=0xff0000)
-    embed.set_author(name=".",, icon_url="http://charliedelta.co.za/uploads/images/fsx.png")
+    embed.set_author(name=".", url="\uFEFF", icon_url="http://charliedelta.co.za/uploads/images/fsx.png")
     embed.set_thumbnail(url="http://charliedelta.co.za/uploads/images/fsx.png")
     # embed.add_field(name="DECODED METAR", value='\uFEFF', inline=False)
     embed.add_field(name="ICAO", value=metar.icao, inline=True)
