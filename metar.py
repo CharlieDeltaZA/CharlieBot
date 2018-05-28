@@ -1,5 +1,6 @@
 """
 METAR Fetch and Decode module, hopefully to be used in a Discord Bot
+Data provided by http://checkwx.com via API
 """
 
 

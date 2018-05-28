@@ -2,6 +2,8 @@
 Charlie's Bot - Main file
 """
 
+# TODO: Add some checks to the commands to ensure they're not empty or contain numbers
+
 # import datetime
 import logging
 import discord
@@ -21,7 +23,10 @@ bot = commands.Bot(command_prefix='!', description="Charlie's Bitch")
 
 @bot.command()
 async def metar(ctx, icao: str):
-    await ctx.send(fetch_metar_raw(icao))
+    if not icao:
+         await ctx.send("! You need to provide a valid 4 digit ICAO code !")
+    elif:
+        await ctx.send(fetch_metar_raw(icao))
 
 
 @bot.command()
