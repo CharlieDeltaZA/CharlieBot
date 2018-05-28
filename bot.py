@@ -38,7 +38,7 @@ async def taf(ctx, icao: str):
 
 @bot.command()
 async def dmetar(ctx, icao: str):
-    DateTime = datetime.datetime.now()
+    DateTime = datetime.datetime.utcnow()
     DateTime = DateTime.strftime("%Y/%m/%d %H:%M:%S")
     metar = fetch_metar_decoded(icao)
 
