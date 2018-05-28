@@ -23,7 +23,7 @@ bot = commands.Bot(command_prefix='!', description="Charlie's Bitch")
 
 @bot.command()
 async def metar(ctx, icao: str):
-    if not icao:
+    if icao == "":
          await ctx.send("! You need to provide a valid 4 digit ICAO code !")
     else:
         await ctx.send(fetch_metar_raw(icao))
