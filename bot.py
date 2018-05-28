@@ -39,7 +39,7 @@ async def taf(ctx, icao: str):
 @bot.command()
 async def dmetar(ctx, icao: str):
     DateTime = datetime.datetime.now()
-    DateTime = DateTime.strftime("%Y/%m/%d %H:%M:%S")
+    DateTime = DateTime.strftime("%Y\/%m\/%d %H:%M:%S")
     metar = fetch_metar_decoded(icao)
 
     embed=discord.Embed(color=0xff0000)
@@ -50,11 +50,11 @@ async def dmetar(ctx, icao: str):
     embed.add_field(name="Observed At", value=metar.observed, inline=False)
     embed.add_field(name="Wind", value=metar.winddir, inline=True)
     embed.add_field(name="Speed", value=metar.windspd + " knots", inline=True)
-    embed.add_field(name="Visibility", value=metar.vis + " m", inline=True)
+    embed.add_field(name="Visibility", value=metar.vis + " m", inline=False)
     embed.add_field(name="Clouds", value=metar.clouds, inline=True)
-    embed.add_field(name="Temperature", value=metar.temp + "C", inline=True)
+    embed.add_field(name="Temperature", value=metar.temp + "C", inline=False)
     embed.add_field(name="Dewpoint", value=metar.dewp + "C", inline=True)
-    embed.add_field(name="Pressure", value=metar.pressure + " hPa", inline=True)
+    embed.add_field(name="Pressure", value=metar.pressure + " hPa", inline=False)
     embed.set_footer(text="Requested at {}".format(DateTime))
     #await self.bot.say(embed=embed)
 
