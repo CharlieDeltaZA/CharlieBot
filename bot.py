@@ -54,7 +54,7 @@ async def dmetar(ctx, icao: str):
     embed.add_field(name="Clouds", value=metar.clouds, inline=True)
     embed.add_field(name="Temperature", value=metar.temp + "C", inline=True)
     embed.add_field(name="Dewpoint", value=metar.dewp + "C", inline=True)
-    embed.add_field(name="Pressure", value=self.pressure + " hPa", inline=True)
+    embed.add_field(name="Pressure", value=metar.pressure + " hPa", inline=True)
     embed.set_footer(text="Requested at {} by {}".format(DateTime, client.user))
     #await self.bot.say(embed=embed)
 
