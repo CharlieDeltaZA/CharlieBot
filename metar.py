@@ -92,9 +92,9 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     metar = metar_resp.get('data')
     #print(metar)
     length = len(metar[0]['clouds'])
-    embed = determine_clouds(length, metar)
+    embed, clouds_emb = determine_clouds(length, metar)
 
-    return embed
+    return embed, clouds_emb
 
 
 # This is horrible, but does it work?
@@ -103,38 +103,43 @@ def determine_clouds(length, metar):
 
     if length == 1:
         embed = Metar(metar)
+        skycond = metar[0]['clouds'][0]['code']
+        if skycond = "CLR":
+            clouds_emb = metar[0]['clouds'][0]['text']
+        else:
+            clouds_emb = '{} {}ft AGL'.format(self.clouds,self.clouds_alt)
+
     elif length == 2:
         clouds2 = metar[0]['clouds'][1]['text']
-
         c2_alt= metar[0]['clouds'][1]['base_feet_agl']
 
         embed = Metar(metar,c2=clouds2,c2_alt=c2_alt,length=length)
+
     elif length == 3:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
-
         c2_alt= metar[0]['clouds'][1]['base_feet_agl']
         c3_alt= metar[0]['clouds'][2]['base_feet_agl']
 
         embed = Metar(metar,c2=clouds2,c3=clouds3,c2_alt=c2_alt,c3_alt=c3_alt,
         length=length)
+
     elif length == 4:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
         clouds4 = metar[0]['clouds'][3]['text']
-
         c2_alt= metar[0]['clouds'][1]['base_feet_agl']
         c3_alt= metar[0]['clouds'][2]['base_feet_agl']
         c4_alt= metar[0]['clouds'][3]['base_feet_agl']
 
         embed = Metar(metar,c2=clouds2,c3=clouds3,c4=clouds4,c2_alt=c2_alt,
         c3_alt=c3_alt,c4_alt=c4_alt,length=length)
+
     elif length == 5:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
         clouds4 = metar[0]['clouds'][3]['text']
         clouds5 = metar[0]['clouds'][4]['text']
-
         c2_alt= metar[0]['clouds'][1]['base_feet_agl']
         c3_alt= metar[0]['clouds'][2]['base_feet_agl']
         c4_alt= metar[0]['clouds'][3]['base_feet_agl']
@@ -143,10 +148,11 @@ def determine_clouds(length, metar):
         embed = Metar(metar,c2=clouds2,c3=clouds3,c4=clouds4,c5=clouds5,
         c2_alt=c2_alt,c3_alt=c3_alt,c4_alt=c4_alt,c5_alt=c5_alt,
         length=length)
+
     else:
         raise Exception('More than 5 cloud reports! Unable to parse')
 
-    return embed
+    return embed, clouds_emb
 
 
 def get_inputs():

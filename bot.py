@@ -42,7 +42,7 @@ async def taf(ctx, icao: str):
 async def dmetar(ctx, icao: str):
     DateTime = datetime.datetime.utcnow()
     DateTime = DateTime.strftime("%d/%m/%Y %H:%M")
-    metar = fetch_metar_decoded(icao)
+    metar, clouds_emb = fetch_metar_decoded(icao)
 
     embed = discord.Embed(title="DECODED METAR", color=0xff0000)
     # embed.set_author(name=".", url="", icon_url="http://charliedelta.co.za/uploads/images/fsx.png")
@@ -55,11 +55,12 @@ async def dmetar(ctx, icao: str):
     # embed.add_field(name="Speed", value=metar.windspd + " knots", inline=False)
     embed.add_field(name="Visibility", value=metar.vis + " m", inline=False)
     embed.add_field(name="Clouds",
-    value="{} {}ft AGL\n".format(metar.clouds, metar.clouds_alt)
-    + "{} {}ft AGL\n".format(metar.clouds2, metar.clouds2_alt)
-    + "{} {}ft AGL\n".format(metar.clouds3, metar.clouds3_alt)
-    + "{} {}ft AGL\n".format(metar.clouds4, metar.clouds4_alt)
-    + "{} {}ft AGL\n".format(metar.clouds5, metar.clouds5_alt), 
+    # value="{} {}ft AGL\n".format(metar.clouds, metar.clouds_alt)
+    # + "{} {}ft AGL\n".format(metar.clouds2, metar.clouds2_alt)
+    # + "{} {}ft AGL\n".format(metar.clouds3, metar.clouds3_alt)
+    # + "{} {}ft AGL\n".format(metar.clouds4, metar.clouds4_alt)
+    # + "{} {}ft AGL\n".format(metar.clouds5, metar.clouds5_alt),
+    value=clouds_emb,
     inline=False)
     embed.add_field(name="Temperature", value=metar.temp + "°C | " + metar.dewp + "°C\n"
     + metar.temp_alt + "°F | " + metar.dewp_alt + "°F", inline=False)
