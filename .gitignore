@@ -4,3 +4,6 @@ __init__.py
 ref_docs.txt
 .gitattributes
 *.pyc
+*.log
+.idea/CharlieBot.iml
+*.xml
