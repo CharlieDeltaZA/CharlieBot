@@ -11,20 +11,20 @@ headers = { 'X-API-Key': key }
 
 class Metar:
     def __init__(self, metar):
-        self.icao = metar['data'][0]['icao']
-        self.name = metar['data'][0]['name']
-        self.observed = metar['data'][0]['observed']
-        self.winddir = str(metar['data'][0]['wind']['degrees'])
-        self.windspd = str(metar['data'][0]['wind']['speed_kts'])
-        self.vis = str(metar['data'][0]['visibility']['meters'])
+        self.icao = metar[0]['icao']
+        self.name = metar[0]['name']
+        self.observed = metar[0]['observed']
+        self.winddir = str(metar[0]['wind']['degrees'])
+        self.windspd = str(metar[0]['wind']['speed_kts'])
+        self.vis = str(metar[0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
-        self.clouds = metar['data'][0]['clouds'][0]['text']
-        self.temp = str(metar['data'][0]['temperature']['celsius'])
-        self.dewp = str(metar['data'][0]['dewpoint']['celsius'])
-        self.pressure = str(metar['data'][0]['barometer']['mb'])
-        self.temp_alt = str(metar['data'][0]['temperature']['fahrenheit'])
-        self.dewp_alt = str(metar['data'][0]['dewpoint']['fahrenheit'])
-        self.pressure_alt = str(metar['data'][0]['barometer']['hg'])
+        self.clouds = metar[0]['clouds'][0]['text']
+        self.temp = str(metar[0]['temperature']['celsius'])
+        self.dewp = str(metar[0]['dewpoint']['celsius'])
+        self.pressure = str(metar[0]['barometer']['mb'])
+        self.temp_alt = str(metar[0]['temperature']['fahrenheit'])
+        self.dewp_alt = str(metar[0]['dewpoint']['fahrenheit'])
+        self.pressure_alt = str(metar[0]['barometer']['hg'])
 
 
 # Shouldn't need a main unless I run it from command line, but we'll include
@@ -56,14 +56,16 @@ def main():
 def fetch_metar_raw(icao):
     url = 'https://api.checkwx.com/metar/{}'.format(icao)
     response = requests.get(url, headers=headers)
-    metar = response.json()
-    return(metar['data'][0])
+    metar_resp = response.json()
+    metar = metar_resp.get('data')
+    return(metar[0])
 
 
 def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     url = 'https://api.checkwx.com/metar/{}/decoded'.format(icao)
     response = requests.get(url, headers=headers)
-    metar = response.json()
+    metar_resp = response.json()
+    metar = metar_resp.get('data')
     #print(metar)
     embed = Metar(metar)
     return embed
@@ -72,8 +74,9 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
 def fetch_taf_raw(icao):
     url = 'https://api.checkwx.com/taf/{}'.format(icao)
     response = requests.get(url, headers=headers)
-    taf = response.json()
-    return(taf['data'][0])
+    taf_resp = response.json()
+    taf = taf_resp.get('data')
+    return(taf[0])
 
 
 def get_inputs():
