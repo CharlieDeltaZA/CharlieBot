@@ -107,7 +107,8 @@ def determine_clouds(length, metar):
         if skycond == "CLR":
             clouds_emb = metar[0]['clouds'][0]['text']
         else:
-            clouds_emb = '{} {}ft AGL'.format(self.clouds,self.clouds_alt)
+            clouds_emb = '{} {}ft AGL'.format(metar[0]['clouds'][0]['text'],
+            metar[0]['clouds'][0]['base_feet_agl'])
 
     elif length == 2:
         clouds2 = metar[0]['clouds'][1]['text']
