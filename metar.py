@@ -19,6 +19,10 @@ class Metar:
         self.vis = str(metar[0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
         self.clouds = metar[0]['clouds'][0]['text']
+        self.clouds2 = metar[0]['clouds'][1]['text']
+        self.clouds3 = metar[0]['clouds'][2]['text']
+        #self.clouds4 = ""
+        #self.clouds5 = ""
         self.temp = str(metar[0]['temperature']['celsius'])
         self.dewp = str(metar[0]['dewpoint']['celsius'])
         self.pressure = str(metar[0]['barometer']['mb'])
