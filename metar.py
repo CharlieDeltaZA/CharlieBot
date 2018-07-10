@@ -79,25 +79,25 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     elif length == 2:
         clouds2 = metar[0]['clouds'][1]['text']
 
-        embed = Metar(metar,clouds2,length)
+        embed = Metar(metar,clouds2,length=length)
     elif length == 3:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
 
-        embed = Metar(metar,clouds2,clouds3,length)
+        embed = Metar(metar,clouds2,clouds3,length=length)
     elif length == 4:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
         clouds4 = metar[0]['clouds'][3]['text']
 
-        embed = Metar(metar,clouds2,clouds3,clouds4,length)
+        embed = Metar(metar,clouds2,clouds3,clouds4,length=length)
     elif length == 5:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
         clouds4 = metar[0]['clouds'][3]['text']
         clouds5 = metar[0]['clouds'][4]['text']
 
-        embed = Metar(metar,clouds2,clouds3,clouds4,clouds5,length)
+        embed = Metar(metar,clouds2,clouds3,clouds4,clouds5,length=length)
     else:
         raise Exception('More than 5 cloud reports! Unable to parse')
 

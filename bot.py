@@ -21,6 +21,7 @@ logger.addHandler(handler)
 
 bot = commands.Bot(command_prefix='!', description="Charlie's Bitch")
 
+
 @bot.command()
 async def metar(ctx, icao: str):
     # if icao == "":
@@ -36,13 +37,14 @@ async def taf(ctx, icao: str):
 # This should take the icao, source the JSON data, initialize variables in a
 # class and return the class, allowing us to format our embed
 
+
 @bot.command()
 async def dmetar(ctx, icao: str):
     DateTime = datetime.datetime.utcnow()
     DateTime = DateTime.strftime("%d/%m/%Y %H:%M")
     metar = fetch_metar_decoded(icao)
 
-    embed=discord.Embed(title="DECODED METAR", color=0xff0000)
+    embed = discord.Embed(title="DECODED METAR", color=0xff0000)
     # embed.set_author(name=".", url="", icon_url="http://charliedelta.co.za/uploads/images/fsx.png")
     embed.set_thumbnail(url="http://charliedelta.co.za/uploads/images/fsx.png")
     # embed.add_field(name="DECODED METAR", value='\uFEFF', inline=False)
@@ -57,7 +59,7 @@ async def dmetar(ctx, icao: str):
     # embed.add_field(name="Dewpoint", value=metar.dewp + "C", inline=False)
     embed.add_field(name="Pressure", value=metar.pressure + " hPa\n" + metar.pressure_alt + " In", inline=False)
     embed.set_footer(text="Requested at {}Z".format(DateTime))
-    #await self.bot.say(embed=embed)
+    # await self.bot.say(embed=embed)
 
     await ctx.send(content=None, embed=embed)
 
