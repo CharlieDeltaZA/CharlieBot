@@ -29,7 +29,7 @@ class Metar:
         self.temp_alt = str(metar[0]['temperature']['fahrenheit'])
         self.dewp_alt = str(metar[0]['dewpoint']['fahrenheit'])
         self.pressure_alt = str(metar[0]['barometer']['hg'])
-        self.length = length
+        # self.length = length
 
 
 # Shouldn't need a main unless I run it from command line, but we'll include
