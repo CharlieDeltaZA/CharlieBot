@@ -101,6 +101,7 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
 # This is horrible, but does it work?
 def determine_clouds(length, metar):
     length = length
+    metar = metar
 
     if length == 1:
         embed = Metar(metar)
