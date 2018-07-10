@@ -72,7 +72,7 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     metar_resp = response.json()
     metar = metar_resp.get('data')
     #print(metar)
-    length = int(len(metar['data'][0]['clouds']))
+    length = len(metar[0]['clouds'])
     # This is horrible, but does it work?
     if length == 1:
         embed = Metar(metar)
