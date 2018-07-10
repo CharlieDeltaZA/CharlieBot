@@ -18,11 +18,11 @@ class Metar:
         self.windspd = str(metar[0]['wind']['speed_kts'])
         self.vis = str(metar[0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
-        self.clouds = metar[0]['clouds'][0]['text']
-        self.clouds2 = clouds2
-        self.clouds3 = clouds3
-        self.clouds4 = clouds4
-        self.clouds5 = clouds5
+        self.clouds = str(metar[0]['clouds'][0]['text'])
+        self.clouds2 = str(clouds2)
+        self.clouds3 = str(clouds3)
+        self.clouds4 = str(clouds4)
+        self.clouds5 = str(clouds5)
         self.temp = str(metar[0]['temperature']['celsius'])
         self.dewp = str(metar[0]['dewpoint']['celsius'])
         self.pressure = str(metar[0]['barometer']['mb'])
