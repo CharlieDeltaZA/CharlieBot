@@ -104,7 +104,7 @@ def determine_clouds(length, metar):
     if length == 1:
         embed = Metar(metar)
         skycond = metar[0]['clouds'][0]['code']
-        if skycond = "CLR":
+        if skycond == "CLR":
             clouds_emb = metar[0]['clouds'][0]['text']
         else:
             clouds_emb = '{} {}ft AGL'.format(self.clouds,self.clouds_alt)
