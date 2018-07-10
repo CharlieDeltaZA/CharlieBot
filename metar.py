@@ -10,7 +10,7 @@ headers = { 'X-API-Key': key }
 
 
 class Metar:
-    def __init__(self, metar, clouds2=None, clouds3=None, clouds4=None, clouds5=None, length=1):
+    def __init__(self, metar, clouds2="", clouds3="", clouds4="", clouds5="", length=1):
         self.icao = metar[0]['icao']
         self.name = metar[0]['name']
         self.observed = metar[0]['observed']
@@ -29,7 +29,7 @@ class Metar:
         self.temp_alt = str(metar[0]['temperature']['fahrenheit'])
         self.dewp_alt = str(metar[0]['dewpoint']['fahrenheit'])
         self.pressure_alt = str(metar[0]['barometer']['hg'])
-        # self.length = length
+        self.length = length
 
 
 # Shouldn't need a main unless I run it from command line, but we'll include
