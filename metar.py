@@ -22,6 +22,9 @@ class Metar:
         self.temp = str(metar['data'][0]['temperature']['celsius'])
         self.dewp = str(metar['data'][0]['dewpoint']['celsius'])
         self.pressure = str(metar['data'][0]['barometer']['mb'])
+        self.temp_alt = str(metar['data'][0]['temperature']['fahrenheit'])
+        self.dewp_alt = str(metar['data'][0]['dewpoint']['fahrenheit'])
+        self.pressure_alt = str(metar['data'][0]['barometer']['hg'])
 
 
 # Shouldn't need a main unless I run it from command line, but we'll include
