@@ -10,7 +10,11 @@ headers = { 'X-API-Key': key }
 
 
 class Metar:
-    def __init__(self, metar, clouds2="", clouds3="", clouds4="", clouds5="", length=1):
+    def __init__(self, metar,
+    c2="", c3="", c4="", c5="",
+    c2_alt="", c3_alt="", c4_alt="", c5_alt="",
+    length=1):
+
         self.icao = metar[0]['icao']
         self.name = metar[0]['name']
         self.observed = metar[0]['observed']
@@ -18,11 +22,18 @@ class Metar:
         self.windspd = str(metar[0]['wind']['speed_kts'])
         self.vis = str(metar[0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
-        self.clouds = str(metar[0]['clouds'][0]['text'])
-        self.clouds2 = str(clouds2)
-        self.clouds3 = str(clouds3)
-        self.clouds4 = str(clouds4)
-        self.clouds5 = str(clouds5)
+
+        self.clouds = metar[0]['clouds'][0]['text']
+        self.clouds2 = c2
+        self.clouds3 = c3
+        self.clouds4 = c4
+        self.clouds5 = c5
+        self.clouds_alt = str(metar[0]['clouds'][0]['base_feet_agl'])
+        self.clouds2_alt = str(c2_alt)
+        self.clouds3_alt = str(c3_alt)
+        self.clouds4_alt = str(c4_alt)
+        self.clouds5_alt = str(c5_alt)
+
         self.temp = str(metar[0]['temperature']['celsius'])
         self.dewp = str(metar[0]['dewpoint']['celsius'])
         self.pressure = str(metar[0]['barometer']['mb'])
@@ -58,6 +69,14 @@ def main():
         print('You must specify an airport!')
 
 
+def fetch_taf_raw(icao):
+    url = 'https://api.checkwx.com/taf/{}'.format(icao)
+    response = requests.get(url, headers=headers)
+    taf_resp = response.json()
+    taf = taf_resp.get('data')
+    return(taf[0])
+
+
 def fetch_metar_raw(icao):
     url = 'https://api.checkwx.com/metar/{}'.format(icao)
     response = requests.get(url, headers=headers)
@@ -73,43 +92,61 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     metar = metar_resp.get('data')
     #print(metar)
     length = len(metar[0]['clouds'])
-    # This is horrible, but does it work?
+    embed = determine_clouds(length, metar)
+
+    return embed
+
+
+# This is horrible, but does it work?
+def determine_clouds(length, metar):
+    length = length
+
     if length == 1:
         embed = Metar(metar)
     elif length == 2:
         clouds2 = metar[0]['clouds'][1]['text']
 
-        embed = Metar(metar,clouds2,length=length)
+        c2_alt= metar[0]['clouds'][1]['base_feet_agl']
+
+        embed = Metar(metar,c2=clouds2,c2_alt=c2_alt,length=length)
     elif length == 3:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
 
-        embed = Metar(metar,clouds2,clouds3,length=length)
+        c2_alt= metar[0]['clouds'][1]['base_feet_agl']
+        c3_alt= metar[0]['clouds'][2]['base_feet_agl']
+
+        embed = Metar(metar,c2=clouds2,c3=clouds3,c2_alt=c2_alt,c3_alt=c3_alt,
+        length=length)
     elif length == 4:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
         clouds4 = metar[0]['clouds'][3]['text']
 
-        embed = Metar(metar,clouds2,clouds3,clouds4,length=length)
+        c2_alt= metar[0]['clouds'][1]['base_feet_agl']
+        c3_alt= metar[0]['clouds'][2]['base_feet_agl']
+        c4_alt= metar[0]['clouds'][3]['base_feet_agl']
+
+        embed = Metar(metar,c2=clouds2,c3=clouds3,c4=clouds4,c2_alt=c2_alt,
+        c3_alt=c3_alt,c4_alt=c4_alt,length=length)
     elif length == 5:
         clouds2 = metar[0]['clouds'][1]['text']
         clouds3 = metar[0]['clouds'][2]['text']
         clouds4 = metar[0]['clouds'][3]['text']
         clouds5 = metar[0]['clouds'][4]['text']
 
-        embed = Metar(metar,clouds2,clouds3,clouds4,clouds5,length=length)
+        c2_alt= metar[0]['clouds'][1]['base_feet_agl']
+        c3_alt= metar[0]['clouds'][2]['base_feet_agl']
+        c4_alt= metar[0]['clouds'][3]['base_feet_agl']
+        c5_alt= metar[0]['clouds'][4]['base_feet_agl']
+
+        embed = Metar(metar,c2=clouds2,c3=clouds3,c4=clouds4,c5=clouds5,
+        c2_alt=c2_alt,c3_alt=c3_alt,c4_alt=c4_alt,c5_alt=c5_alt,
+        length=length)
     else:
         raise Exception('More than 5 cloud reports! Unable to parse')
 
     return embed
-
-
-def fetch_taf_raw(icao):
-    url = 'https://api.checkwx.com/taf/{}'.format(icao)
-    response = requests.get(url, headers=headers)
-    taf_resp = response.json()
-    taf = taf_resp.get('data')
-    return(taf[0])
 
 
 def get_inputs():
