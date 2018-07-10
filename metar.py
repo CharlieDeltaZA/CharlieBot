@@ -10,7 +10,7 @@ headers = { 'X-API-Key': key }
 
 
 class Metar:
-    def __init__(self, metar):
+    def __init__(self, metar, clouds2=None, clouds3=None, clouds4=None, clouds5=None):
         self.icao = metar[0]['icao']
         self.name = metar[0]['name']
         self.observed = metar[0]['observed']
@@ -19,16 +19,17 @@ class Metar:
         self.vis = str(metar[0]['visibility']['meters'])
         # This may need some looking at for multiple cloud reports
         self.clouds = metar[0]['clouds'][0]['text']
-        self.clouds2 = metar[0]['clouds'][1]['text']
-        self.clouds3 = metar[0]['clouds'][2]['text']
-        #self.clouds4 = ""
-        #self.clouds5 = ""
+        self.clouds2 = clouds2
+        self.clouds3 = clouds3
+        self.clouds4 = clouds4
+        self.clouds5 = clouds5
         self.temp = str(metar[0]['temperature']['celsius'])
         self.dewp = str(metar[0]['dewpoint']['celsius'])
         self.pressure = str(metar[0]['barometer']['mb'])
         self.temp_alt = str(metar[0]['temperature']['fahrenheit'])
         self.dewp_alt = str(metar[0]['dewpoint']['fahrenheit'])
         self.pressure_alt = str(metar[0]['barometer']['hg'])
+        self.length = (len(metar[0]['clouds'])
 
 
 # Shouldn't need a main unless I run it from command line, but we'll include
@@ -71,7 +72,35 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     metar_resp = response.json()
     metar = metar_resp.get('data')
     #print(metar)
-    embed = Metar(metar)
+    length = len(metar['data'][0]['clouds'])
+    # This is horrible, but does it work?
+    if length == 1:
+        embed = Metar(metar)
+    elif length == 2:
+        clouds2 = metar['data'][0]['clouds'][1]
+
+        embed = Metar(metar,clouds2)
+    elif length == 3:
+        clouds2 = metar['data'][0]['clouds'][1]
+        clouds3 = metar['data'][0]['clouds'][2]
+
+        embed = Metar(metar,clouds2,clouds3)
+    elif length == 4:
+        clouds2 = metar['data'][0]['clouds'][1]
+        clouds3 = metar['data'][0]['clouds'][2]
+        clouds4 = metar['data'][0]['clouds'][3]
+
+        embed = Metar(metar,clouds2,clouds3,clouds4)
+    elif length == 5:
+        clouds2 = metar['data'][0]['clouds'][1]
+        clouds3 = metar['data'][0]['clouds'][2]
+        clouds4 = metar['data'][0]['clouds'][3]
+        clouds5 = metar['data'][0]['clouds'][4]
+
+        embed = Metar(metar,clouds2,clouds3,clouds4,clouds5)
+    else:
+        raise Exception('More than 5 cloud reports! Unable to parse')
+
     return embed
 
 

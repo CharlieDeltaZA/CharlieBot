@@ -52,7 +52,7 @@ async def dmetar(ctx, icao: str):
     embed.add_field(name="Wind / Speed", value=metar.winddir + "° / " + metar.windspd + " knots", inline=False)
     # embed.add_field(name="Speed", value=metar.windspd + " knots", inline=False)
     embed.add_field(name="Visibility", value=metar.vis + " m", inline=False)
-    embed.add_field(name="Clouds", value=metar.clouds + "\n" + metar.clouds2 + "\n" + metar.clouds3, inline=False)
+    embed.add_field(name="Clouds", value=metar.clouds + "\n" + metar.clouds2 + "\n" + metar.clouds3 + "\n" + metar.clouds4 + "\n" + metar.clouds5, inline=False)
     embed.add_field(name="Temperature", value=metar.temp + "°C | " + metar.dewp + "°C\n" + metar.temp_alt + "°F | " + metar.dewp_alt + "°F", inline=False)
     # embed.add_field(name="Dewpoint", value=metar.dewp + "C", inline=False)
     embed.add_field(name="Pressure", value=metar.pressure + " hPa\n" + metar.pressure_alt + " In", inline=False)
