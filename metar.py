@@ -77,25 +77,25 @@ def fetch_metar_decoded(icao):  #Try this as an embed? Or pre formatted string
     if length == 1:
         embed = Metar(metar)
     elif length == 2:
-        clouds2 = metar['data'][0]['clouds'][1]
+        clouds2 = metar[0]['clouds'][1]
 
         embed = Metar(metar,clouds2,length)
     elif length == 3:
-        clouds2 = metar['data'][0]['clouds'][1]
-        clouds3 = metar['data'][0]['clouds'][2]
+        clouds2 = metar[0]['clouds'][1]
+        clouds3 = metar[0]['clouds'][2]
 
         embed = Metar(metar,clouds2,clouds3,length)
     elif length == 4:
-        clouds2 = metar['data'][0]['clouds'][1]
-        clouds3 = metar['data'][0]['clouds'][2]
-        clouds4 = metar['data'][0]['clouds'][3]
+        clouds2 = metar[0]['clouds'][1]
+        clouds3 = metar[0]['clouds'][2]
+        clouds4 = metar[0]['clouds'][3]
 
         embed = Metar(metar,clouds2,clouds3,clouds4,length)
     elif length == 5:
-        clouds2 = metar['data'][0]['clouds'][1]
-        clouds3 = metar['data'][0]['clouds'][2]
-        clouds4 = metar['data'][0]['clouds'][3]
-        clouds5 = metar['data'][0]['clouds'][4]
+        clouds2 = metar[0]['clouds'][1]
+        clouds3 = metar[0]['clouds'][2]
+        clouds4 = metar[0]['clouds'][3]
+        clouds5 = metar[0]['clouds'][4]
 
         embed = Metar(metar,clouds2,clouds3,clouds4,clouds5,length)
     else:
