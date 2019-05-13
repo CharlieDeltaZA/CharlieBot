@@ -19,7 +19,7 @@ handler.setFormatter(logging.Formatter('%(asctime)s:%(levelname)s:%(name)s: %(me
 logger.addHandler(handler)
 
 
-bot = commands.Bot(command_prefix='!', description="Charlie's Bitch")
+bot = commands.Bot(command_prefix='!', description="Charlie's Little Helper")
 
 
 @bot.command()

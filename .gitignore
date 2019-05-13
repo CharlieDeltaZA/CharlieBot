@@ -7,3 +7,4 @@ ref_docs.txt
 *.log
 .idea/CharlieBot.iml
 *.xml
+*.DS_Store
