@@ -9,7 +9,7 @@ import logging
 import discord
 from discord.ext import commands
 from credentials import token
-from metar import fetch_taf_raw, fetch_metar_raw, fetch_metar_decoded
+from metar import fetchTafRaw, fetchMetarRaw, fetch_metar_decoded, fetchStationInfo
 
 
 logger = logging.getLogger('discord')
@@ -27,12 +27,17 @@ async def metar(ctx, icao: str):
     # if icao == "":
     #     await ctx.send("! You need to provide a valid 4 digit ICAO code !")
     # else:
-    await ctx.send(fetch_metar_raw(icao))
+    await ctx.send(fetchMetarRaw(icao))
 
 
 @bot.command()
 async def taf(ctx, icao: str):
-    await ctx.send(fetch_taf_raw(icao))
+    await ctx.send(fetchTafRaw(icao))
+
+@bot.command()
+async def icao(ctx, icao: str):
+    fetchStationInfo(icao)
+    await ctx.send("Check Terminal!")
 
 # This should take the icao, source the JSON data, initialize variables in a
 # class and return the class, allowing us to format our embed
