@@ -73,10 +73,14 @@ def fetchStationInfo(icao):
     url = 'https://api.checkwx.com/station/{}'.format(icao)
     response = requests.get(url, headers=headers)
     stationResp = response.json()
-    print(stationResp)
+    # print(stationResp)
     if stationResp['results'] == 1:
-        print("")
-        print(stationResp['data'][0])
+        # print("")
+        # print(type(stationResp['data'][0]))
+        station = stationResp['data'][0]
+        return(station)
+    else:
+        return("No station info available for {}".format(icao.upper()))
     
 
 def fetchTafRaw(icao):

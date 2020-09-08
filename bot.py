@@ -9,6 +9,7 @@ import logging
 import discord
 from discord.ext import commands
 from credentials import token
+from benedict import benedict
 from metar import fetchTafRaw, fetchMetarRaw, fetch_metar_decoded, fetchStationInfo
 
 
@@ -24,10 +25,36 @@ bot = commands.Bot(command_prefix='!', description="Charlie's Little Helper")
 
 @bot.command()
 async def metar(ctx, icao: str):
-    # if icao == "":
-    #     await ctx.send("! You need to provide a valid 4 digit ICAO code !")
-    # else:
-    await ctx.send(fetchMetarRaw(icao))
+    metar = fetchMetarRaw(icao)
+    station = fetchStationInfo(icao)
+
+    if (type(station) != type(dict())):
+        await ctx.send(metar)
+    else:
+        station = benedict(station)
+        countryName = station['country.name'] if 'country.name' in station else 'Unknown Country'
+        city = station['city'] if 'city' in station else 'Unknown City'
+        elevation = station['elevation.feet'] if 'elevation.feet' in station else 'Unknown Elevation'
+
+        metarEmbed = discord.Embed(
+            title = 'Metar & Station Info - ' + icao.upper(),
+            # description = icao,
+            colour = discord.Colour.red()
+        )
+
+        # metarEmbed.set_author(name=station['name'])
+        metarEmbed.add_field(name="Raw Metar", value=metar, inline=False)
+
+        metarEmbed.add_field(name="Name", value=station['name'], inline=True)
+        metarEmbed.add_field(name="City", value=city, inline=True)
+        metarEmbed.add_field(name="Country", value=countryName, inline=True)
+
+        metarEmbed.add_field(name="Elevation", value=str(elevation) + 'ft', inline=True)
+        metarEmbed.add_field(name="Latitude", value=station['latitude.decimal'], inline=True)
+        metarEmbed.add_field(name="Longitude", value=station['longitude.decimal'], inline=True)
+
+
+        await ctx.send(embed=metarEmbed)
 
 
 @bot.command()
